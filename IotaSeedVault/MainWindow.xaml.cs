@@ -32,6 +32,7 @@ namespace IotaSeedVault
             if (((currentVault == null) || (currentVault == "")) && (vaultData.Count > 0))
             {                
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Iota Vault File (*.IVF)|*.IVF";
                 if (saveFileDialog.ShowDialog() == true)
                 {
                     currentVault = saveFileDialog.FileName;
@@ -46,11 +47,23 @@ namespace IotaSeedVault
         private void btnOpen_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Iota Vault File (*.IVF)|*.IVF";
             if (openFileDialog.ShowDialog() == true)
             {
                 currentVault = openFileDialog.FileName;
                 LoadVaultData(JsonSerialization.ReadFromJsonFile<ObservableCollection<IotaSeed>>(currentVault));
             }
+        }
+
+        private void btnRemoveSeed_Click(object sender, RoutedEventArgs e)
+        {
+            IotaSeed iS = ((FrameworkElement)sender).DataContext as IotaSeed;
+            vaultData.Remove(iS);
+        }
+
+        private void btnNewSeed_Click(object sender, RoutedEventArgs e)
+        {
+            vaultData.Add(IotaSeed.generateIotaSeed("undefined"));
         }
     }
 }

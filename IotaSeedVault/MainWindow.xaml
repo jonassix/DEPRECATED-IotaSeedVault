@@ -6,7 +6,7 @@
         xmlns:ti="http://schemas.themify.me/icons/"
     x:Class="IotaSeedVault.MainWindow"
     mc:Ignorable="d"
-    Title="MainWindow" Height="350" Width="525">
+    Title="MainWindow" Height="350" Width="525" MinWidth="525" MinHeight="350">
     <Grid Grid.Row="1">
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
@@ -15,18 +15,18 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Name="btnOpen" Content="Open Vault" Grid.Column="1" HorizontalAlignment="Left" Margin="36,29,0,0" VerticalAlignment="Top" Width="75" Height="20" Click="btnOpen_Click"/>
-        <Button Name="btnSave" Content="Close &amp; Save Vault" Grid.Column="1" HorizontalAlignment="Left" Margin="116,29,0,0" VerticalAlignment="Top" Width="117" Click="btnSave_Click"/>
-        <Button Name="btnNewSeed" Content="Create New Seed" HorizontalAlignment="Left" Grid.Column="1" Margin="238,29,0,0" VerticalAlignment="Top" Width="109"/>
+        <Button Name="btnOpen" Content="Open Vault" Margin="102,28,0,0" Click="btnOpen_Click" Background="White" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75" />
+        <Button Name="btnSave" Content="Close &amp; Save Vault" Margin="182,28,0,0" Click="btnSave_Click" Background="White" HorizontalAlignment="Left" Width="117" Height="20" VerticalAlignment="Top"/>
+        <Button Name="btnNewSeed" Content="Create New Seed" Margin="304,28,0,0" Background="White" HorizontalAlignment="Left" Width="109" Height="20" VerticalAlignment="Top" Click="btnNewSeed_Click" />
         <DataGrid Name="dgData" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Grid.ColumnSpan="2"
                   ItemsSource="{Binding}"  AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="5*"/>
                 <DataGridTextColumn Header="Seed" Binding="{Binding Seed}" Width="10*"/>
                 <DataGridTemplateColumn Header="Actions" Width="2*">
-                <DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button ti:Themify.Content="Na"  >Delete</Button>
+                            <Button Name="btnRemoveSeed" ti:Themify.Content="Na" Click="btnRemoveSeed_Click"  Background="White" BorderBrush="White" >Delete</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
