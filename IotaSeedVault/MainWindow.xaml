@@ -1,0 +1,37 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ti="http://schemas.themify.me/icons/"
+    x:Class="IotaSeedVault.MainWindow"
+    mc:Ignorable="d"
+    Title="MainWindow" Height="350" Width="525">
+    <Grid Grid.Row="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Content="Open Vault" Grid.Column="1" HorizontalAlignment="Left" Margin="36,29,0,0" VerticalAlignment="Top" Width="75" Height="20"/>
+        <Button Content="Close &amp; Save Vault" HorizontalAlignment="Left" Margin="116,29,0,0" VerticalAlignment="Top" Width="117"/>
+        <Button Content="Create New Seed" HorizontalAlignment="Left" Margin="238,29,0,0" VerticalAlignment="Top" Width="109"/>
+        <DataGrid Name="dgData" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Grid.ColumnSpan="2"
+                  ItemsSource="{Binding}"  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="5*"/>
+                <DataGridTextColumn Header="Seed" Binding="{Binding Seed}" Width="10*"/>
+                <DataGridTemplateColumn Header="Actions" Width="2*">
+                <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button ti:Themify.Content="Na"  >Delete</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>
