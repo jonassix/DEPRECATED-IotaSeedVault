@@ -1,20 +1,8 @@
 ﻿using IotaSeedVault.Controller;
 using IotaSeedVault.Model;
-using System;
-using System.Collections.Generic;
+using Microsoft.Win32;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace IotaSeedVault
 {
@@ -23,31 +11,46 @@ namespace IotaSeedVault
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string currentVault;
-        private static ObservableCollection<IotaSeed> tempData = new ObservableCollection<IotaSeed>();
+        //vault location and filename
+        private string currentVault;        
+        private static ObservableCollection<IotaSeed> vaultData =  new ObservableCollection<IotaSeed>();
 
         public MainWindow()
         {
-            InitializeComponent();
-            GenFakeData();
-            LoadFakeData();
+            InitializeComponent();            
+            LoadVaultData(vaultData);
         }
 
-        public void GenFakeData()
+        public void LoadVaultData(ObservableCollection<IotaSeed> data)
         {
-            tempData.Clear();
-            tempData.Add(IotaSeed.generateIotaSeed());
-            tempData.Add(IotaSeed.generateIotaSeed());
-            tempData.Add(IotaSeed.generateIotaSeed());
-        }
-        public void LoadFakeData()
-        {
-            dgData.DataContext = tempData;
+            vaultData = data;
+            dgData.DataContext = vaultData;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
+        {            
+            if (((currentVault == null) || (currentVault == "")) && (vaultData.Count > 0))
+            {                
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    currentVault = saveFileDialog.FileName;
+                }                    
+            }
+            JsonSerialization.WriteToJsonFile<ObservableCollection<IotaSeed>>(currentVault, vaultData);
+            vaultData.Clear();
+            currentVault = null;
+            
+        }
+
+        private void btnOpen_Click(object sender, RoutedEventArgs e)
         {
-            JsonSerialization.WriteToJsonFile<ObservableCollection<IotaSeed>>(@"person.txt", tempData);
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                currentVault = openFileDialog.FileName;
+                LoadVaultData(JsonSerialization.ReadFromJsonFile<ObservableCollection<IotaSeed>>(currentVault));
+            }
         }
     }
 }
