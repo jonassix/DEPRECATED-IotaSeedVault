@@ -1,4 +1,5 @@
-﻿using IotaSeedVault.Model;
+﻿using IotaSeedVault.Controller;
+using IotaSeedVault.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,7 +23,9 @@ namespace IotaSeedVault
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static ObservableCollection<IotaSeed> tempData = new ObservableCollection<IotaSeed>();
+        private string currentVault;
+        private static ObservableCollection<IotaSeed> tempData = new ObservableCollection<IotaSeed>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,6 +43,11 @@ namespace IotaSeedVault
         public void LoadFakeData()
         {
             dgData.DataContext = tempData;
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            JsonSerialization.WriteToJsonFile<ObservableCollection<IotaSeed>>(@"person.txt", tempData);
         }
     }
 }

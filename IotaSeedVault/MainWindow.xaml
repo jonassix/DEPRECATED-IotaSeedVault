@@ -16,7 +16,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Button Content="Open Vault" Grid.Column="1" HorizontalAlignment="Left" Margin="36,29,0,0" VerticalAlignment="Top" Width="75" Height="20"/>
-        <Button Content="Close &amp; Save Vault" HorizontalAlignment="Left" Margin="116,29,0,0" VerticalAlignment="Top" Width="117"/>
+        <Button Name="btnSave" Content="Close &amp; Save Vault" HorizontalAlignment="Left" Margin="116,29,0,0" VerticalAlignment="Top" Width="117" Click="btnSave_Click"/>
         <Button Content="Create New Seed" HorizontalAlignment="Left" Margin="238,29,0,0" VerticalAlignment="Top" Width="109"/>
         <DataGrid Name="dgData" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Grid.ColumnSpan="2"
                   ItemsSource="{Binding}"  AutoGenerateColumns="False">
