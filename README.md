@@ -10,8 +10,8 @@ Depending on popularity i will implement extra features and a linux/osx version 
 In the near future i will add more comments to my code and make sure there are no .dlls needed.
 
 ## Installation
-Compile the soure or download the executable
-Make sure the .dll files are with them when you move the app.
+Compile the soure or download the executable. Make sure the .dll files are with them when you move the app.
+
 Download : [IotaSeedVault.rar](https://github.com/jonassix/IotaSeedVault/raw/master/IotaSeedVault/bin/Release/IotaSeedVault.rar)
 
 ## Support
