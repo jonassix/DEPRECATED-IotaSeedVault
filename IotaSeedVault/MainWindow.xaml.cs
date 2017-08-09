@@ -12,7 +12,8 @@ namespace IotaSeedVault
     public partial class MainWindow : Window
     {
         //vault location and filename
-        private string currentVault;        
+        private string currentVault;
+        private string cryptKey = string.Empty;
         private static ObservableCollection<IotaSeed> vaultData =  new ObservableCollection<IotaSeed>();
 
         public MainWindow()
@@ -27,7 +28,7 @@ namespace IotaSeedVault
             dgData.DataContext = vaultData;
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {            
             if (((currentVault == null) || (currentVault == "")) && (vaultData.Count > 0))
             {                
@@ -38,32 +39,51 @@ namespace IotaSeedVault
                     currentVault = saveFileDialog.FileName;
                 }                    
             }
-            JsonSerialization.WriteToJsonFile<ObservableCollection<IotaSeed>>(currentVault, vaultData);
+
+            if (cryptKey == string.Empty)
+            {
+                CryptKeyDialog popup = new CryptKeyDialog();
+                popup.ShowDialog();
+                cryptKey = popup.CryptKey;
+            }
+
+            JsonSerialization.WriteToJsonFile<ObservableCollection<IotaSeed>>(cryptKey, currentVault, vaultData);
             vaultData.Clear();
             currentVault = null;
+            cryptKey = string.Empty;
             
         }
 
-        private void btnOpen_Click(object sender, RoutedEventArgs e)
+        private void BtnOpen_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Iota Vault File (*.IVF)|*.IVF";
-            if (openFileDialog.ShowDialog() == true)
+            try
+            {                
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Iota Vault File (*.IVF)|*.IVF";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    currentVault = openFileDialog.FileName;
+                    CryptKeyDialog popup = new CryptKeyDialog();
+                    popup.ShowDialog();
+                    cryptKey = popup.CryptKey;
+                    LoadVaultData(JsonSerialization.ReadFromJsonFile<ObservableCollection<IotaSeed>>(cryptKey, currentVault));
+                }
+            }
+            catch
             {
-                currentVault = openFileDialog.FileName;
-                LoadVaultData(JsonSerialization.ReadFromJsonFile<ObservableCollection<IotaSeed>>(currentVault));
+                MessageBox.Show("Failure: Wrong password or wrong file");
             }
         }
 
-        private void btnRemoveSeed_Click(object sender, RoutedEventArgs e)
+        private void BtnRemoveSeed_Click(object sender, RoutedEventArgs e)
         {
             IotaSeed iS = ((FrameworkElement)sender).DataContext as IotaSeed;
             vaultData.Remove(iS);
         }
 
-        private void btnNewSeed_Click(object sender, RoutedEventArgs e)
+        private void BtnNewSeed_Click(object sender, RoutedEventArgs e)
         {
-            vaultData.Add(IotaSeed.generateIotaSeed("undefined"));
+            vaultData.Add(IotaSeed.GenerateIotaSeed("undefined"));
         }
     }
 }

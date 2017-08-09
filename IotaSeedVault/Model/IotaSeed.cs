@@ -25,19 +25,19 @@ namespace IotaSeedVault.Model
             Remark = remark;
         }
 
-        public static IotaSeed generateIotaSeed(string name)
+        public static IotaSeed GenerateIotaSeed(string name)
         {
             IotaSeed iS = new IotaSeed()
             {
                 Name = name
             };
 
-            iS.Seed = generateRandomSeed();
+            iS.Seed = GenerateRandomSeed();
 
             return iS;
         }
 
-        private static string generateRandomSeed()
+        private static string GenerateRandomSeed()
         {
 
             char[] chars = new char[27];

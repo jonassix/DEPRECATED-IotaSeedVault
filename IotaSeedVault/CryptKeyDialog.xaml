@@ -1,0 +1,14 @@
+﻿<Window x:Class="IotaSeedVault.CryptKeyDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IotaSeedVault"
+        mc:Ignorable="d"
+        Title="Key ?" Height="90" Width="300" ResizeMode="NoResize">
+    <StackPanel>
+        <TextBlock TextAlignment="Center" Text="Please enter your secret password to open the vault"/>
+        <TextBox x:Name="CryptKeyBox"/>
+        <Button Content="Enter" Click="Button_Click" />
+    </StackPanel>
+</Window>
