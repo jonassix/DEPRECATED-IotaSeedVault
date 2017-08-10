@@ -12,7 +12,7 @@ In the near future i will add more comments to my code and make sure there are n
 ## Installation
 Compile the soure or download the executable. Make sure the .dll files are with them when you move the app.
 
-Download : [IotaSeedVault.rar](https://github.com/jonassix/IotaSeedVault/raw/master/IotaSeedVault/bin/Release/IotaSeedVault.rar)
+Download : [IotaSeedVault.zip](https://github.com/jonassix/IotaSeedVault/files/1214978/IotaSeedVault.zip)
 
 ## Support
 If you want to support this project, i only accept ``IOTA``:p.
