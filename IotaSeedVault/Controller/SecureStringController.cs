@@ -10,8 +10,6 @@ namespace IotaSeedVault.Controller
 {
     public class SecureStringController
     {
-        //// Instantiate the secure string.
-        //SecureString securePwd = new SecureString();
 
         public static SecureString ConvertToSecureString(string strPassword)
         {

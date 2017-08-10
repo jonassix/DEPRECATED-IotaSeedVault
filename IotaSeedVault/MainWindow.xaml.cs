@@ -15,7 +15,9 @@ namespace IotaSeedVault
     {
         //vault location and filename
         private string currentVault;
+        //used to encrypt and decrypt vault
         private SecureString cryptKey = null;
+        //used to display vault data on gui
         private static ObservableCollection<IotaSeed> vaultData =  new ObservableCollection<IotaSeed>();
 
         public MainWindow()
@@ -42,6 +44,7 @@ namespace IotaSeedVault
                 }                    
             }
 
+            //if key doenst exist, ask for one.
             if (cryptKey == null)
             {
                 CryptKeyDialog popup = new CryptKeyDialog();
@@ -49,7 +52,10 @@ namespace IotaSeedVault
                 cryptKey = SecureStringController.ConvertToSecureString(popup.CryptKey);
             }
 
+            //store file to disk
             JsonSerialization.WriteToJsonFile<ObservableCollection<IotaSeed>>(cryptKey, currentVault, vaultData);
+            
+            //Clean gui and memory
             vaultData.Clear();
             currentVault = null;
             cryptKey.Clear();            
@@ -65,10 +71,13 @@ namespace IotaSeedVault
                 openFileDialog.Filter = "Iota Vault File (*.IVF)|*.IVF";
                 if (openFileDialog.ShowDialog() == true)
                 {
+                    //ask for key to decrypt vault
                     currentVault = openFileDialog.FileName;
                     CryptKeyDialog popup = new CryptKeyDialog();
                     popup.ShowDialog();
                     cryptKey = SecureStringController.ConvertToSecureString(popup.CryptKey);
+
+                    //decrypt vault and load data
                     LoadVaultData(JsonSerialization.ReadFromJsonFile<ObservableCollection<IotaSeed>>(cryptKey, currentVault));
                 }
             }
