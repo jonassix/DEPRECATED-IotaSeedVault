@@ -1,6 +1,8 @@
-﻿using System;
+﻿using IotaSeedVault.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +10,21 @@ using System.Threading.Tasks;
 namespace IotaSeedVault.Model
 {
     public class IotaSeed
-    {        
-        public string Seed { get; set; }
+    {
+        private SecureString _Seed;
+
+        public string Seed
+        {
+            get
+            {
+                return SecureStringController.ConvertToUNSecureString(_Seed);
+            }
+            set
+            {
+                _Seed = SecureStringController.ConvertToSecureString(value);
+            }
+        }
+    
         public string Name { get; set; }
         public string Remark { get; set; }
 
@@ -18,11 +33,11 @@ namespace IotaSeedVault.Model
 
         }
 
-        public IotaSeed(string seed, string name, string remark)
-        {            
-            Seed = seed;
+        public IotaSeed(SecureString seed, string name, string remark)
+        {
+            _Seed = seed;
             Name = name;
-            Remark = remark;
+            Remark = remark;            
         }
 
         public static IotaSeed GenerateIotaSeed(string name)
@@ -32,12 +47,12 @@ namespace IotaSeedVault.Model
                 Name = name
             };
 
-            iS.Seed = GenerateRandomSeed();
+            iS._Seed = GenerateRandomSeed();
 
             return iS;
         }
 
-        private static string GenerateRandomSeed()
+        private static SecureString GenerateRandomSeed()
         {
 
             char[] chars = new char[27];
@@ -54,7 +69,7 @@ namespace IotaSeedVault.Model
             {
                 result.Append(chars[b % (chars.Length)]);
             }
-            return result.ToString();
+            return SecureStringController.ConvertToSecureString(result.ToString());
         }
     }
 }

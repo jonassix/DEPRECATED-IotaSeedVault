@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+using System.Security;
 
 namespace IotaSeedVault.Controller
 {
@@ -26,14 +22,14 @@ namespace IotaSeedVault.Controller
         /// <param name="filePath">The file path to write the object instance to.</param>
         /// <param name="objectToWrite">The object instance to write to the file.</param>
         /// <param name="append">If false the file will be overwritten if it already exists. If true the contents will be appended to the file.</param>
-        public static void WriteToJsonFile<T>(string cryptoKey, string filePath, T objectToWrite, bool append = false) where T : new()
+        public static void WriteToJsonFile<T>(SecureString cryptoKey, string filePath, T objectToWrite, bool append = false) where T : new()
         {
             TextWriter writer = null;
             try
             {
                 var contentsToWriteToFile = Newtonsoft.Json.JsonConvert.SerializeObject(objectToWrite);
                 writer = new StreamWriter(filePath, append);
-                writer.Write(new SecurityController().Encrypt(cryptoKey,contentsToWriteToFile));
+                writer.Write(new SecurityController().Encrypt(SecureStringController.ConvertToUNSecureString(cryptoKey), contentsToWriteToFile));
             }
             finally
             {
@@ -49,14 +45,14 @@ namespace IotaSeedVault.Controller
         /// <typeparam name="T">The type of object to read from the file.</typeparam>
         /// <param name="filePath">The file path to read the object instance from.</param>
         /// <returns>Returns a new instance of the object read from the Json file.</returns>
-        public static T ReadFromJsonFile<T>(string cryptoKey, string filePath) where T : new()
+        public static T ReadFromJsonFile<T>(SecureString cryptoKey, string filePath) where T : new()
         {
             TextReader reader = null;
             try
             {
                 reader = new StreamReader(filePath);
                 var fileContents = reader.ReadToEnd();
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(new SecurityController().Decrypt(cryptoKey, fileContents));
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(new SecurityController().Decrypt(SecureStringController.ConvertToUNSecureString(cryptoKey), fileContents));
             }
             finally
             {

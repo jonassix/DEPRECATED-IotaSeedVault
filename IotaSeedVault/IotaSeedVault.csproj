@@ -77,6 +77,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controller\JsonSerialization.cs" />
+    <Compile Include="Controller\SecureStringController.cs" />
     <Compile Include="Controller\SecurityController.cs" />
     <Compile Include="CryptKeyDialog.xaml.cs">
       <DependentUpon>CryptKeyDialog.xaml</DependentUpon>

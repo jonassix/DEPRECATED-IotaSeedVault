@@ -2,6 +2,7 @@
 using IotaSeedVault.Model;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.Security;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,7 +15,7 @@ namespace IotaSeedVault
     {
         //vault location and filename
         private string currentVault;
-        private string cryptKey = string.Empty;
+        private SecureString cryptKey = null;
         private static ObservableCollection<IotaSeed> vaultData =  new ObservableCollection<IotaSeed>();
 
         public MainWindow()
@@ -41,17 +42,18 @@ namespace IotaSeedVault
                 }                    
             }
 
-            if (cryptKey == string.Empty)
+            if (cryptKey == null)
             {
                 CryptKeyDialog popup = new CryptKeyDialog();
                 popup.ShowDialog();
-                cryptKey = popup.CryptKey;
+                cryptKey = SecureStringController.ConvertToSecureString(popup.CryptKey);
             }
 
             JsonSerialization.WriteToJsonFile<ObservableCollection<IotaSeed>>(cryptKey, currentVault, vaultData);
             vaultData.Clear();
             currentVault = null;
-            cryptKey = string.Empty;
+            cryptKey.Clear();            
+            cryptKey = null;
             
         }
 
@@ -66,7 +68,7 @@ namespace IotaSeedVault
                     currentVault = openFileDialog.FileName;
                     CryptKeyDialog popup = new CryptKeyDialog();
                     popup.ShowDialog();
-                    cryptKey = popup.CryptKey;
+                    cryptKey = SecureStringController.ConvertToSecureString(popup.CryptKey);
                     LoadVaultData(JsonSerialization.ReadFromJsonFile<ObservableCollection<IotaSeed>>(cryptKey, currentVault));
                 }
             }
