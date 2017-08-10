@@ -24,7 +24,7 @@ namespace IotaSeedVault
             get
             {
                 if (CryptKeyBox == null) return string.Empty;
-                return CryptKeyBox.Text;
+                return CryptKeyBox.Password;
             }
         }
         public CryptKeyDialog()

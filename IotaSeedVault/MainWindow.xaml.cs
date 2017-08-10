@@ -3,6 +3,7 @@ using IotaSeedVault.Model;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace IotaSeedVault
 {
@@ -73,6 +74,15 @@ namespace IotaSeedVault
             {
                 MessageBox.Show("Failure: Wrong password or wrong file");
             }
+        }
+
+        private void CopySeed_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;           
+            ContextMenu contextMenu = (ContextMenu)menuItem.Parent;
+            DataGrid item = (DataGrid)contextMenu.PlacementTarget;
+  
+            Clipboard.SetText(((IotaSeed)item.SelectedCells[0].Item).Seed);
         }
 
         private void BtnRemoveSeed_Click(object sender, RoutedEventArgs e)

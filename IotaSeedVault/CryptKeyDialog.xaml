@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IotaSeedVault"
         mc:Ignorable="d"
-        Title="Key ?" Height="90" Width="300" ResizeMode="NoResize">
-    <StackPanel>
+        Title="Key ?" Height="94" Width="300" ResizeMode="NoResize">
+    <StackPanel FocusManager.FocusedElement="{Binding ElementName=CryptKeyBox}">
         <TextBlock TextAlignment="Center" Text="Please enter your secret password to open the vault"/>
-        <TextBox x:Name="CryptKeyBox"/>
-        <Button Content="Enter" Click="Button_Click" />
+        <PasswordBox x:Name="CryptKeyBox" Background="LightGreen" Foreground="DarkBlue" PasswordChar="*" />
+        <Button Content="Enter" Click="Button_Click" IsDefault="True" />
     </StackPanel>
 </Window>
