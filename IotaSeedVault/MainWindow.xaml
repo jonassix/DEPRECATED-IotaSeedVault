@@ -41,7 +41,7 @@
                Source="Resources/iota_logo.png"
                ToolTip="Ordered List"
                RenderOptions.BitmapScalingMode="HighQuality"
-               Margin="0,10,200,10" />
+               Margin="100,10,0,10" HorizontalAlignment="Left" Width="160" />
 
 
     </Grid>
