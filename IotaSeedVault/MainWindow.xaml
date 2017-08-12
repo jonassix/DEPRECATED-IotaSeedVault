@@ -6,7 +6,7 @@
         xmlns:ti="http://schemas.themify.me/icons/"
     x:Class="IotaSeedVault.MainWindow"
     mc:Ignorable="d"
-    Title="MainWindow" Height="350" Width="525" MinWidth="525" MinHeight="350">
+    Title="Iota Seed Vault" Height="350" Width="525" MinWidth="525" MinHeight="350">
     <Grid Grid.Row="1">
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
@@ -15,9 +15,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Name="btnOpen" Content="Open Vault" Margin="102,28,0,0" Click="BtnOpen_Click" Background="White" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75" />
-        <Button Name="btnSave" Content="Close &amp; Save Vault" Margin="182,28,0,0" Click="BtnSave_Click" Background="White" HorizontalAlignment="Left" Width="117" Height="20" VerticalAlignment="Top"/>
-        <Button Name="btnNewSeed" Content="Create New Seed" Margin="304,28,0,0" Background="White" HorizontalAlignment="Left" Width="109" Height="20" VerticalAlignment="Top" Click="BtnNewSeed_Click" />
+        <Button Name="btnOpen" Content="Open Vault" Margin="291,5,0,0" Click="BtnOpen_Click" Background="White" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="117" />
+        <Button Name="btnSave" Content="Close &amp; Save Vault" Margin="291,25,0,0" Click="BtnSave_Click" Background="White" HorizontalAlignment="Left" Width="117" Height="20" VerticalAlignment="Top"/>
+        <Button Name="btnNewSeed" Content="Create New Seed" Margin="291,45,0,0" Background="White" HorizontalAlignment="Left" Width="117" Height="20" VerticalAlignment="Top" Click="BtnNewSeed_Click" />
         <DataGrid Name="dgData" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Grid.ColumnSpan="2"
                   ItemsSource="{Binding}"  AutoGenerateColumns="False">
             <DataGrid.Columns>
@@ -37,6 +37,12 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
+        <Image Name="ImageOrderedList"
+               Source="Resources/iota_logo.png"
+               ToolTip="Ordered List"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               Margin="0,10,200,10" />
+
 
     </Grid>
 </Window>
