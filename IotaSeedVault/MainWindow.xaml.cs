@@ -53,12 +53,16 @@ namespace IotaSeedVault
             }
 
             //store file to disk
-            JsonSerialization.WriteToJsonFile<ObservableCollection<IotaSeed>>(cryptKey, currentVault, vaultData);
-            
+            if (currentVault != null && cryptKey != null)
+            {
+                JsonSerialization.WriteToJsonFile<ObservableCollection<IotaSeed>>(cryptKey, currentVault, vaultData);
+                vaultData.Clear();
+                cryptKey.Clear();
+            }
+
             //Clean gui and memory
-            vaultData.Clear();
+
             currentVault = null;
-            cryptKey.Clear();            
             cryptKey = null;
             
         }
